@@ -19,7 +19,9 @@ namespace POS__CAFETERIA_DULCE_AROMA
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            // cuando de clic, abrira el fomulario de productos
+            FrmProductos frm = frmProductos();
+            frm.show();
         }
 
         private void button1_Click(object sender, EventArgs e)
