@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -119,18 +120,135 @@ namespace POS__CAFETERIA_DULCE_AROMA.capa_presentaciom
             //limpiar los controles
             LimpiarCampos();
         }
+
+        //metodo para limpiar los controles
+
+        private void LimpiarCampos()
+            {
+            txtId.Clear();
+            txtNombre.Clear();
+            txtDescripcion.Clear();
+            txtPrecio.Clear();
+            txtStock.Clear();
+            chkEstado.Checked = false;
+        }
+
+        private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Mostrar detalles del producto seleccionado en los controles
+            if (dgvProductos.CurrentRow == null) return;
+            txtId.Text = dgvProductos.CurrentRow.Cells[0].Value.ToString();
+            txtNombre.Text = dgvProductos.CurrentRow.Cells[1].Value.ToString();
+            txtDescripcion.Text = dgvProductos.CurrentRow.Cells[2].Value.ToString();
+            txtPrecio.Text = dgvProductos.CurrentRow.Cells[3].Value.ToString();
+            txtStock.Text = dgvProductos.CurrentRow.Cells[4].Value.ToString();
+            chkEstado.Checked =
+                Convert.ToBoolean(dgvProductos.CurrentRow.Cells[5].Value);
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            //Eliminar producto seleccionado
+            if (!int.TryParse(txtId.Text, out int id))
+            {
+                MessageBox.Show("Seleccione un producto válido para eliminar.",
+                    "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var prod = listaProductos
+                .FirstOrDefault(x => x.Id == id);
+            if (prod==null)
+            {
+                MessageBox.Show("Producto no encontrado"); return;
+            }
+            if (MessageBox.Show("¿Está seguro de eliminar el producto seleccinado " +
+                prod.Nombre + "?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                listaProductos.Remove(prod);
+                MessageBox.Show("Producto eliminado exitosamente.",
+                    "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                RefrescarListaProductos();
+                LimpiarCampos();
+
+
+
+            }
+
+           
+            }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            //validar que el ID sea correcto
+            if (!int.TryParse(txtId.Text, out int id))
+            {
+                MessageBox.Show("Seleccione un producto válido para editar.",
+                    "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var prod = listaProductos
+                .FirstOrDefault(x => x.Id == id);
+            if (prod == null)
+                {
+                MessageBox.Show("Producto no encontrado"); return;
+            }
+            //VALIDACION BASICA
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                MessageBox.Show(" El nombre es obligatorio.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validaciones.EsDecimal(txtPrecio.Text))
+            {
+                MessageBox.Show(" El precio debe ser un valor decimal.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validaciones.EsEntero(txtStock.Text))
+            {
+                MessageBox.Show("Stock invalido.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            //Actualizar producto
+            prod.Nombre = txtNombre.Text.Trim();
+            prod.Descripcion = txtDescripcion.Text.Trim();
+            prod.Precio = decimal.Parse(txtPrecio.Text.Trim());
+            prod.Stock = int.Parse(txtStock.Text.Trim());
+            prod.estado = chkEstado.Checked;
+
+
+        }
+    }
+    }
     
 
 
-        
 
 
-        private void LimpiarCampos()
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+
+
+
+
+
+
+
+
+
+
 
 
 
