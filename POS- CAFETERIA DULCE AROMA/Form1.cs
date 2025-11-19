@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POS__CAFETERIA_DULCE_AROMA.capa_presentaciom;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,9 +21,12 @@ namespace POS__CAFETERIA_DULCE_AROMA
         private void button2_Click(object sender, EventArgs e)
         {
             // cuando de clic, abrira el fomulario de productos
-            FrmProductos frm = frmProductos();
-            frm.show();
+            FrmProductos frmProductos = new FrmProductos();
+            frmProductos.Show();
+
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
