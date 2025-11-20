@@ -201,7 +201,7 @@ namespace POS__CAFETERIA_DULCE_AROMA.capa_presentaciom
             var prod = listaProductos
                 .FirstOrDefault(x => x.Id == id);
             if (prod == null)
-                {
+            {
                 MessageBox.Show("Producto no encontrado"); return;
             }
             //VALIDACION BASICA
@@ -229,11 +229,17 @@ namespace POS__CAFETERIA_DULCE_AROMA.capa_presentaciom
             prod.Precio = decimal.Parse(txtPrecio.Text.Trim());
             prod.Stock = int.Parse(txtStock.Text.Trim());
             prod.estado = chkEstado.Checked;
+            MessageBox.Show("Producto actualizado exitosamente.", "Éxito",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RefrescarListaProductos();
+            LimpiarCampos();
+        }
+
 
 
         }
     }
-    }
+    
     
 
 

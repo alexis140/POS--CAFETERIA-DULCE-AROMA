@@ -46,8 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="capa entidades\Clientes.cs" />
     <Compile Include="capa entidades\Producto.cs" />
     <Compile Include="capa entidades\Validaciones.cs" />
+    <Compile Include="capa presentaciom\FrmClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="capa presentaciom\FrmClientes.Designer.cs">
+      <DependentUpon>FrmClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="capa presentaciom\FrmProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +69,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="capa presentaciom\FrmClientes.resx">
+      <DependentUpon>FrmClientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="capa presentaciom\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </EmbeddedResource>

@@ -42,5 +42,13 @@ namespace POS__CAFETERIA_DULCE_AROMA
         {
 
         }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            // cuando de clic, abrira el fomulario de clientes
+            FrmClientes frmClientes = new FrmClientes();
+            frmClientes.Show();
+
+        }
     }
 }
